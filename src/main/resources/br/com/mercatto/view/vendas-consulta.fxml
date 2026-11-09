@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<VBox
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="br.com.mercatto.controller.VendasConsultaController"
+    fx:id="vendasConsultaRoot"
+    styleClass="mercatto-root, content-page"
+    spacing="20.0"
+    prefWidth="1060.0"
+    prefHeight="760.0"
+    minWidth="780.0"
+    minHeight="620.0"
+    stylesheets="@../css/mercatto.css"
+>
+    <HBox alignment="CENTER_LEFT" spacing="20.0">
+        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+            <Label text="CONSULTAS" styleClass="eyebrow" />
+            <Label text="Vendas realizadas" styleClass="page-title" fx:id="tituloTela" />
+            <Label
+                text="Acompanhe o histórico e consulte cada atendimento."
+                styleClass="page-description"
+                wrapText="true"
+            />
+        </VBox>
+    </HBox>
+    <HBox alignment="BOTTOM_LEFT" spacing="12.0" styleClass="card, toolbar">
+        <VBox spacing="7.0">
+            <Label text="Data inicial" styleClass="field-label" />
+            <DatePicker
+                fx:id="filtroDataInicial"
+                promptText="Data inicial"
+                prefWidth="170.0"
+                minWidth="130.0"
+                editable="false"
+                accessibleText="Data inicial da consulta"
+            />
+        </VBox>
+        <VBox spacing="7.0">
+            <Label text="Data final" styleClass="field-label" />
+            <DatePicker
+                fx:id="filtroDataFinal"
+                promptText="Data final"
+                prefWidth="170.0"
+                minWidth="130.0"
+                editable="false"
+                accessibleText="Data final da consulta"
+            />
+        </VBox>
+        <VBox spacing="7.0" HBox.hgrow="ALWAYS">
+            <Label text="Cliente" styleClass="field-label" />
+            <ComboBox
+                fx:id="filtroCliente"
+                promptText="Todos os clientes"
+                prefWidth="230.0"
+                minWidth="180.0"
+                maxWidth="1.7976931348623157E308"
+                accessibleText="Filtrar vendas por cliente"
+            />
+        </VBox>
+        <Button
+            fx:id="btnFiltrarVendas"
+            onAction="#filtrar"
+            text="Filtrar"
+            styleClass="secondary-button"
+            mnemonicParsing="false"
+            minWidth="-Infinity"
+        >
+            <graphic>
+                <SVGPath content="M21 21 L16.6 16.6 M19 11 A8 8 0 1 1 3 11 A8 8 0 1 1 19 11" styleClass="icon" />
+            </graphic>
+        </Button>
+        <Button
+            fx:id="btnLimparFiltros"
+            onAction="#limparFiltros"
+            text="Limpar"
+            styleClass="text-button"
+            mnemonicParsing="false"
+            minWidth="-Infinity"
+        />
+    </HBox>
+    <VBox styleClass="card, table-card" VBox.vgrow="ALWAYS">
+        <TableView
+            fx:id="tabelaVendas"
+            styleClass="data-table"
+            fixedCellSize="46.0"
+            minHeight="190.0"
+            VBox.vgrow="ALWAYS"
+        >
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="colunaNumero" text="Venda" prefWidth="100.0" minWidth="80.0" />
+                <TableColumn fx:id="colunaData" text="Data e hora" prefWidth="180.0" minWidth="145.0" />
+                <TableColumn fx:id="colunaCliente" text="Cliente" prefWidth="300.0" minWidth="170.0" />
+                <TableColumn fx:id="colunaPagamento" text="Pagamento" prefWidth="160.0" minWidth="120.0" />
+                <TableColumn
+                    fx:id="colunaTotal"
+                    text="Total"
+                    prefWidth="145.0"
+                    minWidth="110.0"
+                    styleClass="money-column"
+                />
+            </columns>
+            <placeholder>
+                <VBox alignment="CENTER" spacing="12.0" styleClass="empty-state">
+                    <StackPane
+                        styleClass="empty-icon"
+                        maxWidth="64.0"
+                        minWidth="64.0"
+                        prefWidth="64.0"
+                        minHeight="64.0"
+                        prefHeight="64.0"
+                    >
+                        <SVGPath
+                            content="M5 3 L7 5 L9 3 L12 5 L15 3 L17 5 L19 3 V21 L17 19 L15 21 L12 19 L9 21 L7 19 L5 21 Z M9 9 H15 M9 13 H15"
+                            styleClass="empty-state-icon"
+                        />
+                    </StackPane>
+                    <VBox alignment="CENTER" spacing="5.0">
+                        <Label text="Nenhuma venda para exibir" styleClass="empty-title" />
+                        <Label
+                            text="As vendas concluídas aparecerão aqui para consulta."
+                            styleClass="empty-description"
+                            maxWidth="340.0"
+                            wrapText="true"
+                            textAlignment="CENTER"
+                        />
+                    </VBox>
+                </VBox>
+            </placeholder>
+        </TableView>
+        <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="table-footer">
+            <Label text="Selecione uma venda para visualizar seus detalhes." styleClass="table-note" wrapText="true" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button
+                fx:id="btnDetalhesVenda"
+                onAction="#detalhes"
+                text="Ver detalhes"
+                styleClass="secondary-button"
+                mnemonicParsing="false"
+                disable="true"
+                minWidth="-Infinity"
+            >
+                <graphic>
+                    <SVGPath
+                        content="M5 3 L7 5 L9 3 L12 5 L15 3 L17 5 L19 3 V21 L17 19 L15 21 L12 19 L9 21 L7 19 L5 21 Z M9 9 H15 M9 13 H15"
+                        styleClass="icon"
+                    />
+                </graphic>
+            </Button>
+        </HBox>
+    </VBox>
+</VBox>

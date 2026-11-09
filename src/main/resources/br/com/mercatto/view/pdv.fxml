@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<VBox
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="br.com.mercatto.controller.PdvController"
+    fx:id="pdvRoot"
+    styleClass="mercatto-root, content-page"
+    spacing="20.0"
+    prefWidth="1060.0"
+    prefHeight="760.0"
+    minWidth="780.0"
+    minHeight="620.0"
+    stylesheets="@../css/mercatto.css"
+>
+    <HBox alignment="CENTER_LEFT" spacing="20.0">
+        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+            <Label text="OPERAÇÃO" styleClass="eyebrow" />
+            <Label text="Ponto de venda" styleClass="page-title" fx:id="tituloTela" />
+            <Label text="Tudo pronto para iniciar um novo atendimento." styleClass="page-description" wrapText="true" />
+        </VBox>
+        <Label text="Venda em preparação" styleClass="status-pill" fx:id="labelSituacaoVenda" />
+    </HBox>
+    <HBox spacing="18.0" VBox.vgrow="ALWAYS">
+        <VBox spacing="18.0" HBox.hgrow="ALWAYS" minWidth="390.0">
+            <VBox spacing="11.0" styleClass="card, toolbar">
+                <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                    <VBox spacing="7.0" HBox.hgrow="ALWAYS" minWidth="110.0">
+                        <Label text="Produto" styleClass="field-label" />
+                        <TextField
+                            fx:id="campoBuscaProduto"
+                            onAction="#adicionar"
+                            promptText="Nome ou código do produto"
+                            accessibleText="Nome ou código do produto"
+                            maxWidth="1.7976931348623157E308"
+                        />
+                    </VBox>
+                    <VBox spacing="7.0" prefWidth="80.0" minWidth="66.0">
+                        <Label text="Quantidade" styleClass="field-label" />
+                        <TextField
+                            fx:id="campoQuantidade"
+                            onAction="#adicionar"
+                            promptText="Qtd."
+                            accessibleText="Qtd."
+                            maxWidth="1.7976931348623157E308"
+                            prefWidth="80.0"
+                            minWidth="66.0"
+                        />
+                    </VBox>
+                    <Button
+                        fx:id="btnAdicionarItem"
+                        onAction="#adicionar"
+                        text="Adicionar"
+                        styleClass="primary-button"
+                        mnemonicParsing="false"
+                        minWidth="-Infinity"
+                    >
+                        <graphic>
+                            <SVGPath content="M12 5 V19 M5 12 H19" styleClass="icon" />
+                        </graphic>
+                    </Button>
+                </HBox>
+                <Label text="Digite o código ou escolha um produto nas sugestões." styleClass="field-hint" />
+                <HBox
+                    fx:id="avisoBuscaProduto"
+                    alignment="CENTER_LEFT"
+                    spacing="12.0"
+                    styleClass="info-box"
+                    visible="false"
+                    managed="false"
+                >
+                    <Label
+                        fx:id="labelResultadoBusca"
+                        text="Produto não encontrado."
+                        styleClass="info-text"
+                        wrapText="true"
+                        HBox.hgrow="ALWAYS"
+                    />
+                    <Button
+                        fx:id="btnCriarProduto"
+                        onAction="#criarProduto"
+                        text="Criar novo produto"
+                        styleClass="secondary-button"
+                        mnemonicParsing="false"
+                        minWidth="-Infinity"
+                    />
+                </HBox>
+            </VBox>
+            <VBox styleClass="card, table-card" VBox.vgrow="ALWAYS">
+                <TableView
+                    fx:id="tabelaCarrinho"
+                    styleClass="data-table"
+                    fixedCellSize="46.0"
+                    minHeight="190.0"
+                    VBox.vgrow="ALWAYS"
+                >
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                    <columns>
+                        <TableColumn fx:id="colunaProduto" text="Produto" prefWidth="300.0" minWidth="135.0" />
+                        <TableColumn
+                            fx:id="colunaQuantidade"
+                            text="Qtd."
+                            prefWidth="68.0"
+                            minWidth="60.0"
+                            styleClass="center-column"
+                        />
+                        <TableColumn
+                            fx:id="colunaPrecoUnitario"
+                            text="Valor unitário"
+                            prefWidth="130.0"
+                            minWidth="105.0"
+                            styleClass="money-column"
+                        />
+                        <TableColumn
+                            fx:id="colunaSubtotal"
+                            text="Subtotal"
+                            prefWidth="130.0"
+                            minWidth="100.0"
+                            styleClass="money-column"
+                        />
+                    </columns>
+                    <placeholder>
+                        <VBox alignment="CENTER" spacing="12.0" styleClass="empty-state">
+                            <StackPane
+                                styleClass="empty-icon"
+                                maxWidth="64.0"
+                                minWidth="64.0"
+                                prefWidth="64.0"
+                                minHeight="64.0"
+                                prefHeight="64.0"
+                            >
+                                <SVGPath
+                                    content="M2 3 H5 L8 16 H19 L22 7 H6 M9 21 A1 1 0 1 1 9 19 A1 1 0 1 1 9 21 M18 21 A1 1 0 1 1 18 19 A1 1 0 1 1 18 21"
+                                    styleClass="empty-state-icon"
+                                />
+                            </StackPane>
+                            <VBox alignment="CENTER" spacing="5.0">
+                                <Label text="O carrinho está vazio" styleClass="empty-title" />
+                                <Label
+                                    text="Busque um produto para começar a venda."
+                                    styleClass="empty-description"
+                                    maxWidth="340.0"
+                                    wrapText="true"
+                                    textAlignment="CENTER"
+                                />
+                            </VBox>
+                        </VBox>
+                    </placeholder>
+                </TableView>
+                <HBox alignment="CENTER_LEFT" spacing="9.0" styleClass="table-footer">
+                    <Button
+                        fx:id="btnRemoverItem"
+                        onAction="#remover"
+                        text="Remover"
+                        styleClass="secondary-button"
+                        mnemonicParsing="false"
+                        disable="true"
+                        minWidth="-Infinity"
+                    >
+                        <graphic>
+                            <SVGPath
+                                content="M3 6 H21 M9 6 V3 H15 V6 M5 6 L6 21 H18 L19 6 M10 10 V17 M14 10 V17"
+                                styleClass="icon"
+                            />
+                        </graphic>
+                    </Button>
+                    <Button
+                        fx:id="btnAlterarQuantidade"
+                        text="Quantidade"
+                        onAction="#alterarQuantidade"
+                        styleClass="secondary-button"
+                        disable="true"
+                        minWidth="-Infinity"
+                    />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button
+                        fx:id="btnLimparCarrinho"
+                        onAction="#limparCarrinho"
+                        text="Limpar"
+                        styleClass="text-button"
+                        mnemonicParsing="false"
+                        disable="true"
+                        minWidth="-Infinity"
+                    />
+                </HBox>
+            </VBox>
+        </VBox>
+        <VBox styleClass="card, summary-card" spacing="11.0" prefWidth="296.0" minWidth="296.0" maxWidth="296.0">
+            <Label text="ATENDIMENTO" styleClass="summary-kicker" />
+            <Label text="Resumo da venda" styleClass="section-title" />
+            <Separator />
+            <VBox spacing="7.0">
+                <Label text="Cliente" styleClass="field-label" />
+                <ComboBox
+                    fx:id="seletorCliente"
+                    promptText="Consumidor não identificado"
+                    maxWidth="1.7976931348623157E308"
+                    accessibleText="Cliente da venda"
+                />
+                <Label text="Identificação opcional." styleClass="field-hint" />
+            </VBox>
+            <Separator />
+            <VBox spacing="15.0">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Itens no carrinho" styleClass="summary-label" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="0" styleClass="summary-value" fx:id="labelQuantidadeItens" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Subtotal" styleClass="summary-label" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="R$ 0,00" styleClass="summary-value" fx:id="labelSubtotal" />
+                </HBox>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS" />
+            <VBox spacing="4.0">
+                <Label text="Total da venda" styleClass="summary-total-label" />
+                <Label text="R$ 0,00" styleClass="summary-total" fx:id="labelTotalVenda" />
+            </VBox>
+            <VBox spacing="10.0">
+                <Button
+                    fx:id="btnPagamento"
+                    onAction="#pagamento"
+                    text="Ir para pagamento"
+                    styleClass="primary-button"
+                    mnemonicParsing="false"
+                    disable="true"
+                    maxWidth="1.7976931348623157E308"
+                    minWidth="-Infinity"
+                >
+                    <graphic>
+                        <SVGPath content="M5 12 H19 M13 6 L19 12 L13 18" styleClass="icon" />
+                    </graphic>
+                </Button>
+                <Button
+                    fx:id="btnCancelarVenda"
+                    onAction="#cancelarVenda"
+                    text="Cancelar venda"
+                    styleClass="text-button"
+                    mnemonicParsing="false"
+                    disable="true"
+                    maxWidth="1.7976931348623157E308"
+                    minWidth="-Infinity"
+                />
+            </VBox>
+            <Label text="Revise os itens antes de concluir a venda." styleClass="summary-footnote" wrapText="true" />
+        </VBox>
+    </HBox>
+</VBox>

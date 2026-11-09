@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<BorderPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="br.com.mercatto.controller.PagamentoController"
+    fx:id="pagamentoRoot"
+    styleClass="mercatto-root, dialog-root"
+    prefWidth="900.0"
+    prefHeight="640.0"
+    minWidth="680.0"
+    minHeight="560.0"
+    stylesheets="@../css/mercatto.css"
+>
+    <top>
+        <VBox spacing="7.0" styleClass="dialog-header">
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <Label text="Finalizar venda" styleClass="dialog-title" fx:id="tituloFormulario" />
+                    <Label
+                        text="Revise os valores e selecione a forma de pagamento."
+                        styleClass="page-description"
+                        wrapText="true"
+                    />
+                </VBox>
+                <Button
+                    fx:id="btnFechar"
+                    onAction="#fechar"
+                    text=""
+                    styleClass="icon-button"
+                    mnemonicParsing="false"
+                    accessibleText="Fechar janela"
+                    minWidth="-Infinity"
+                >
+                    <graphic>
+                        <SVGPath content="M6 6 L18 18 M18 6 L6 18" styleClass="icon" />
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="form-scroll">
+            <content>
+                <HBox spacing="24.0" styleClass="dialog-body">
+                    <VBox spacing="22.0" HBox.hgrow="ALWAYS">
+                        <VBox spacing="12.0">
+                            <Label text="Como o cliente vai pagar?" styleClass="section-title" />
+                            <HBox spacing="10.0">
+                                <ToggleButton
+                                    fx:id="opcaoDinheiro"
+                                    text="Dinheiro"
+                                    styleClass="payment-option"
+                                    selected="true"
+                                    maxWidth="1.7976931348623157E308"
+                                    HBox.hgrow="ALWAYS"
+                                    prefWidth="122.0"
+                                    minWidth="94.0"
+                                >
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="grupoPagamento" />
+                                    </toggleGroup>
+                                    <graphic>
+                                        <SVGPath
+                                            content="M2 5 H22 V19 H2 Z M16 12 A4 4 0 1 1 8 12 A4 4 0 1 1 16 12 M5 9 V15 M19 9 V15"
+                                            styleClass="icon"
+                                        />
+                                    </graphic>
+                                </ToggleButton>
+                                <ToggleButton
+                                    fx:id="opcaoCartao"
+                                    text="Cartão"
+                                    styleClass="payment-option"
+                                    toggleGroup="$grupoPagamento"
+                                    maxWidth="1.7976931348623157E308"
+                                    HBox.hgrow="ALWAYS"
+                                    prefWidth="122.0"
+                                    minWidth="94.0"
+                                >
+                                    <graphic>
+                                        <SVGPath content="M2 5 H22 V19 H2 Z M2 10 H22 M6 15 H10" styleClass="icon" />
+                                    </graphic>
+                                </ToggleButton>
+                                <ToggleButton
+                                    fx:id="opcaoPix"
+                                    text="PIX"
+                                    styleClass="payment-option"
+                                    toggleGroup="$grupoPagamento"
+                                    maxWidth="1.7976931348623157E308"
+                                    HBox.hgrow="ALWAYS"
+                                    prefWidth="122.0"
+                                    minWidth="94.0"
+                                >
+                                    <graphic>
+                                        <SVGPath
+                                            content="M12 2 L22 12 L12 22 L2 12 Z M7 7 L12 12 L17 7 M7 17 L12 12 L17 17"
+                                            styleClass="icon"
+                                        />
+                                    </graphic>
+                                </ToggleButton>
+                            </HBox>
+                        </VBox>
+                        <VBox spacing="7.0">
+                            <Label text="Valor recebido" styleClass="field-label" />
+                            <TextField
+                                fx:id="campoValorRecebido"
+                                promptText="Informe o valor recebido"
+                                accessibleText="Informe o valor recebido"
+                                maxWidth="1.7976931348623157E308"
+                            />
+                            <Label
+                                fx:id="labelOrientacaoPagamento"
+                                text="Preencha este campo para pagamentos em dinheiro."
+                                styleClass="field-hint"
+                                wrapText="true"
+                            />
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="info-box">
+                            <SVGPath
+                                content="M12 11 V17 M12 7 V7.2 M22 12 A10 10 0 1 1 2 12 A10 10 0 1 1 22 12"
+                                styleClass="icon"
+                            />
+                            <Label
+                                text="Confira o valor recebido e o troco antes de confirmar o pagamento."
+                                styleClass="info-text"
+                                wrapText="true"
+                                HBox.hgrow="ALWAYS"
+                            />
+                        </HBox>
+                        <Separator />
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Troco" styleClass="summary-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="R$ 0,00" styleClass="change-value" fx:id="labelTroco" />
+                        </HBox>
+                    </VBox>
+                    <VBox
+                        spacing="20.0"
+                        styleClass="payment-total-box"
+                        prefWidth="244.0"
+                        minWidth="230.0"
+                        maxWidth="244.0"
+                    >
+                        <Label text="RESUMO" styleClass="summary-kicker" />
+                        <VBox spacing="7.0">
+                            <Label text="Total a receber" styleClass="summary-total-label" />
+                            <Label text="R$ 0,00" styleClass="summary-total" fx:id="labelTotalPagamento" />
+                        </VBox>
+                        <Separator />
+                        <VBox spacing="7.0">
+                            <Label text="Cliente" styleClass="detail-label" />
+                            <Label
+                                text="Não identificado"
+                                styleClass="detail-value"
+                                wrapText="true"
+                                fx:id="labelClientePagamento"
+                            />
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Quantidade de itens" styleClass="summary-label" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="0" styleClass="summary-value" fx:id="labelItensPagamento" />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="12.0" styleClass="dialog-footer">
+            <Button
+                fx:id="btnVoltarPdv"
+                onAction="#fechar"
+                text="Voltar ao PDV"
+                styleClass="secondary-button"
+                mnemonicParsing="false"
+                minWidth="-Infinity"
+            />
+            <Button
+                fx:id="btnConfirmarPagamento"
+                onAction="#confirmar"
+                text="Confirmar pagamento"
+                styleClass="primary-button"
+                mnemonicParsing="false"
+                disable="true"
+                minWidth="-Infinity"
+            >
+                <graphic>
+                    <SVGPath content="M5 12 L10 17 L20 7" styleClass="icon" />
+                </graphic>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<VBox
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="br.com.mercatto.controller.ClientesConsultaController"
+    fx:id="clientesConsultaRoot"
+    styleClass="mercatto-root, content-page"
+    spacing="20.0"
+    prefWidth="1060.0"
+    prefHeight="760.0"
+    minWidth="780.0"
+    minHeight="620.0"
+    stylesheets="@../css/mercatto.css"
+>
+    <HBox alignment="CENTER_LEFT" spacing="20.0">
+        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+            <Label text="CADASTROS" styleClass="eyebrow" />
+            <Label text="Clientes" styleClass="page-title" fx:id="tituloTela" />
+            <Label
+                text="Mantenha os dados dos seus clientes organizados."
+                styleClass="page-description"
+                wrapText="true"
+            />
+        </VBox>
+        <Button
+            fx:id="btnNovoCliente"
+            onAction="#novo"
+            text="Novo cliente"
+            styleClass="primary-button"
+            mnemonicParsing="false"
+            minWidth="-Infinity"
+        >
+            <graphic>
+                <SVGPath content="M12 5 V19 M5 12 H19" styleClass="icon" />
+            </graphic>
+        </Button>
+    </HBox>
+    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="card, toolbar">
+        <TextField
+            fx:id="campoBuscaCliente"
+            onAction="#buscar"
+            promptText="Buscar por nome, CPF ou CNPJ"
+            accessibleText="Buscar por nome, CPF ou CNPJ"
+            maxWidth="1.7976931348623157E308"
+            HBox.hgrow="ALWAYS"
+        />
+        <ComboBox
+            fx:id="filtroSituacaoCliente"
+            promptText="Todas as situações"
+            prefWidth="190.0"
+            accessibleText="Filtrar clientes por situação"
+        />
+        <Button
+            fx:id="btnBuscarCliente"
+            onAction="#buscar"
+            text="Buscar"
+            styleClass="secondary-button"
+            mnemonicParsing="false"
+            minWidth="-Infinity"
+        >
+            <graphic>
+                <SVGPath content="M21 21 L16.6 16.6 M19 11 A8 8 0 1 1 3 11 A8 8 0 1 1 19 11" styleClass="icon" />
+            </graphic>
+        </Button>
+    </HBox>
+    <VBox styleClass="card, table-card" VBox.vgrow="ALWAYS">
+        <TableView
+            fx:id="tabelaClientes"
+            styleClass="data-table"
+            fixedCellSize="46.0"
+            minHeight="190.0"
+            VBox.vgrow="ALWAYS"
+        >
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="colunaNome" text="Cliente" prefWidth="330.0" minWidth="180.0" />
+                <TableColumn fx:id="colunaDocumento" text="CPF / CNPJ" prefWidth="230.0" minWidth="150.0" />
+                <TableColumn fx:id="colunaTelefone" text="Telefone" prefWidth="210.0" minWidth="140.0" />
+                <TableColumn fx:id="colunaSituacao" text="Situação" prefWidth="140.0" minWidth="100.0" />
+            </columns>
+            <placeholder>
+                <VBox alignment="CENTER" spacing="12.0" styleClass="empty-state">
+                    <StackPane
+                        styleClass="empty-icon"
+                        maxWidth="64.0"
+                        minWidth="64.0"
+                        prefWidth="64.0"
+                        minHeight="64.0"
+                        prefHeight="64.0"
+                    >
+                        <SVGPath
+                            content="M16 21 v-2 a4 4 0 0 0 -4 -4 H6 a4 4 0 0 0 -4 4 v2 M16 3 a4 4 0 0 1 0 8 M22 21 v-2 a4 4 0 0 0 -3 -3.87 M13 7 a4 4 0 1 1 -8 0 a4 4 0 1 1 8 0"
+                            styleClass="empty-state-icon"
+                        />
+                    </StackPane>
+                    <VBox alignment="CENTER" spacing="5.0">
+                        <Label text="Nenhum cliente cadastrado" styleClass="empty-title" />
+                        <Label
+                            text="Os clientes cadastrados aparecerão nesta lista."
+                            styleClass="empty-description"
+                            maxWidth="340.0"
+                            wrapText="true"
+                            textAlignment="CENTER"
+                        />
+                    </VBox>
+                </VBox>
+            </placeholder>
+        </TableView>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="table-footer">
+            <Button
+                fx:id="btnEditarCliente"
+                onAction="#editar"
+                text="Editar"
+                styleClass="secondary-button"
+                mnemonicParsing="false"
+                disable="true"
+                minWidth="-Infinity"
+            >
+                <graphic>
+                    <SVGPath content="M15 5 L19 9 M4 20 L8 19 L20 7 A2.8 2.8 0 0 0 16 3 L4 15 Z" styleClass="icon" />
+                </graphic>
+            </Button>
+            <Button
+                fx:id="btnSituacaoCliente"
+                onAction="#alterarSituacao"
+                text="Alterar situação"
+                styleClass="secondary-button"
+                mnemonicParsing="false"
+                disable="true"
+                minWidth="-Infinity"
+            >
+                <graphic>
+                    <SVGPath content="M12 2 V12 M5 5 A9 9 0 1 0 19 5" styleClass="icon" />
+                </graphic>
+            </Button>
+            <Button
+                fx:id="btnExcluirCliente"
+                onAction="#excluir"
+                text="Excluir"
+                styleClass="danger-button"
+                mnemonicParsing="false"
+                disable="true"
+                minWidth="-Infinity"
+            >
+                <graphic>
+                    <SVGPath
+                        content="M3 6 H21 M9 6 V3 H15 V6 M5 6 L6 21 H18 L19 6 M10 10 V17 M14 10 V17"
+                        styleClass="icon"
+                    />
+                </graphic>
+            </Button>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button
+                fx:id="btnUsarCliente"
+                text="Usar no PDV"
+                onAction="#usarCliente"
+                styleClass="primary-button"
+                disable="true"
+                minWidth="-Infinity"
+            />
+        </HBox>
+    </VBox>
+</VBox>

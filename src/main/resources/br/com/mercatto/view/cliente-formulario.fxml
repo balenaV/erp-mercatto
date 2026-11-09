@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<BorderPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="br.com.mercatto.controller.ClienteFormularioController"
+    fx:id="clienteFormularioRoot"
+    styleClass="mercatto-root, dialog-root"
+    prefWidth="840.0"
+    prefHeight="680.0"
+    minWidth="680.0"
+    minHeight="560.0"
+    stylesheets="@../css/mercatto.css"
+>
+    <top>
+        <VBox spacing="7.0" styleClass="dialog-header">
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <Label text="Cliente" styleClass="dialog-title" fx:id="tituloFormulario" />
+                    <Label
+                        text="Cadastre ou atualize os dados de identificação e contato."
+                        styleClass="page-description"
+                        wrapText="true"
+                    />
+                </VBox>
+                <Button
+                    fx:id="btnFechar"
+                    onAction="#fechar"
+                    text=""
+                    styleClass="icon-button"
+                    mnemonicParsing="false"
+                    accessibleText="Fechar janela"
+                    minWidth="-Infinity"
+                >
+                    <graphic>
+                        <SVGPath content="M6 6 L18 18 M18 6 L6 18" styleClass="icon" />
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="rolagemFormulario" fitToWidth="true" hbarPolicy="NEVER" styleClass="form-scroll">
+            <content>
+                <VBox spacing="18.0" styleClass="dialog-body">
+                    <VBox spacing="20.0" styleClass="form-section">
+                        <Label text="Informações do cliente" styleClass="section-title" />
+                        <GridPane hgap="20.0" vgap="20.0">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50.0" hgrow="ALWAYS" />
+                                <ColumnConstraints percentWidth="50.0" hgrow="ALWAYS" />
+                            </columnConstraints>
+                            <VBox spacing="7.0" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                                <Label text="Nome / razão social *" styleClass="field-label" />
+                                <TextField
+                                    fx:id="campoNomeCliente"
+                                    promptText="Nome do cliente ou razão social"
+                                    accessibleText="Nome do cliente ou razão social"
+                                    maxWidth="1.7976931348623157E308"
+                                />
+                            </VBox>
+                            <VBox spacing="7.0" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                <Label text="CPF / CNPJ *" styleClass="field-label" />
+                                <TextField
+                                    fx:id="campoDocumentoCliente"
+                                    promptText="CPF ou CNPJ"
+                                    accessibleText="CPF ou CNPJ"
+                                    maxWidth="1.7976931348623157E308"
+                                />
+                                <Label
+                                    text="Documento de identificação do cliente."
+                                    styleClass="field-hint"
+                                    wrapText="true"
+                                />
+                            </VBox>
+                            <VBox spacing="7.0" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <Label text="Telefone *" styleClass="field-label" />
+                                <TextField
+                                    fx:id="campoTelefoneCliente"
+                                    promptText="Telefone com DDD"
+                                    accessibleText="Telefone com DDD"
+                                    maxWidth="1.7976931348623157E308"
+                                />
+                                <Label text="Número de contato do cliente." styleClass="field-hint" wrapText="true" />
+                            </VBox>
+                            <VBox spacing="7.0" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                                <Label text="Situação" styleClass="field-label" />
+                                <HBox alignment="CENTER_LEFT" spacing="22.0" minHeight="44.0">
+                                    <RadioButton fx:id="radioAtivo" text="Ativo" selected="true">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="grupoSituacao" />
+                                        </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="radioInativo" text="Inativo" toggleGroup="$grupoSituacao" />
+                                </HBox>
+                                <Label
+                                    text="Disponibilidade para vincular a novas vendas."
+                                    styleClass="field-hint"
+                                    wrapText="true"
+                                />
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+                    <HBox alignment="TOP_LEFT" spacing="12.0" styleClass="info-box">
+                        <SVGPath
+                            content="M12 11 V17 M12 7 V7.2 M22 12 A10 10 0 1 1 2 12 A10 10 0 1 1 22 12"
+                            styleClass="icon"
+                        />
+                        <Label
+                            text="A identificação do cliente é opcional no PDV. Clientes inativos permanecem no histórico de vendas."
+                            styleClass="info-text"
+                            wrapText="true"
+                            HBox.hgrow="ALWAYS"
+                        />
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="12.0" styleClass="dialog-footer">
+            <Label text="Campos com * são obrigatórios." styleClass="required-note" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button
+                fx:id="btnCancelar"
+                onAction="#fechar"
+                text="Cancelar"
+                styleClass="secondary-button"
+                mnemonicParsing="false"
+                minWidth="-Infinity"
+            />
+            <Button
+                fx:id="btnSalvar"
+                onAction="#salvar"
+                text="Salvar cliente"
+                styleClass="primary-button"
+                mnemonicParsing="false"
+                minWidth="-Infinity"
+            >
+                <graphic>
+                    <SVGPath content="M5 12 L10 17 L20 7" styleClass="icon" />
+                </graphic>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>

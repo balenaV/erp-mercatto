@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<BorderPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="br.com.mercatto.controller.VendaDetalhesController"
+    fx:id="vendaDetalhesRoot"
+    styleClass="mercatto-root, dialog-root"
+    prefWidth="960.0"
+    prefHeight="760.0"
+    minWidth="680.0"
+    minHeight="560.0"
+    stylesheets="@../css/mercatto.css"
+>
+    <top>
+        <VBox spacing="7.0" styleClass="dialog-header">
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <Label text="Detalhes da venda" styleClass="dialog-title" fx:id="tituloFormulario" />
+                    <Label
+                        text="Confira as informações e os itens do atendimento."
+                        styleClass="page-description"
+                        wrapText="true"
+                    />
+                </VBox>
+                <Button
+                    fx:id="btnFechar"
+                    onAction="#fechar"
+                    text=""
+                    styleClass="icon-button"
+                    mnemonicParsing="false"
+                    accessibleText="Fechar janela"
+                    minWidth="-Infinity"
+                >
+                    <graphic>
+                        <SVGPath content="M6 6 L18 18 M18 6 L6 18" styleClass="icon" />
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" styleClass="form-scroll">
+            <content>
+                <VBox spacing="18.0" styleClass="dialog-body">
+                    <GridPane hgap="25.0" vgap="20.0" styleClass="form-section">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="28.0" hgrow="ALWAYS" />
+                            <ColumnConstraints percentWidth="39.0" hgrow="ALWAYS" />
+                            <ColumnConstraints percentWidth="33.0" hgrow="ALWAYS" />
+                        </columnConstraints>
+                        <VBox spacing="7.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="NÚMERO DA VENDA" styleClass="detail-label" />
+                            <Label text="—" styleClass="detail-value" fx:id="labelNumeroVenda" />
+                        </VBox>
+                        <VBox spacing="7.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="DATA E HORA" styleClass="detail-label" />
+                            <Label text="—" styleClass="detail-value" fx:id="labelDataVenda" />
+                        </VBox>
+                        <VBox spacing="7.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                            <Label text="FORMA DE PAGAMENTO" styleClass="detail-label" />
+                            <Label text="—" styleClass="detail-value" fx:id="labelFormaPagamento" />
+                        </VBox>
+                        <VBox spacing="7.0" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                            <Label text="CLIENTE" styleClass="detail-label" />
+                            <Label text="—" styleClass="detail-value" wrapText="true" fx:id="labelClienteVenda" />
+                        </VBox>
+                        <VBox spacing="7.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <Label text="CPF / CNPJ" styleClass="detail-label" />
+                            <Label text="—" styleClass="detail-value" fx:id="labelDocumentoCliente" />
+                        </VBox>
+                    </GridPane>
+                    <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                        <Label text="Itens da venda" styleClass="section-title" />
+                        <VBox styleClass="card, table-card" VBox.vgrow="ALWAYS">
+                            <TableView
+                                fx:id="tabelaItensVenda"
+                                styleClass="data-table"
+                                fixedCellSize="46.0"
+                                minHeight="190.0"
+                                VBox.vgrow="ALWAYS"
+                            >
+                                <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                </columnResizePolicy>
+                                <columns>
+                                    <TableColumn fx:id="colunaCodigo" text="Código" prefWidth="120.0" minWidth="95.0" />
+                                    <TableColumn
+                                        fx:id="colunaProduto"
+                                        text="Produto"
+                                        prefWidth="290.0"
+                                        minWidth="180.0"
+                                    />
+                                    <TableColumn
+                                        fx:id="colunaQuantidade"
+                                        text="Qtd."
+                                        prefWidth="75.0"
+                                        minWidth="60.0"
+                                        styleClass="center-column"
+                                    />
+                                    <TableColumn
+                                        fx:id="colunaPreco"
+                                        text="Valor unitário"
+                                        prefWidth="140.0"
+                                        minWidth="120.0"
+                                        styleClass="money-column"
+                                    />
+                                    <TableColumn
+                                        fx:id="colunaSubtotal"
+                                        text="Subtotal"
+                                        prefWidth="140.0"
+                                        minWidth="110.0"
+                                        styleClass="money-column"
+                                    />
+                                </columns>
+                                <placeholder>
+                                    <VBox alignment="CENTER" spacing="12.0" styleClass="empty-state">
+                                        <StackPane
+                                            styleClass="empty-icon"
+                                            maxWidth="64.0"
+                                            minWidth="64.0"
+                                            prefWidth="64.0"
+                                            minHeight="64.0"
+                                            prefHeight="64.0"
+                                        >
+                                            <SVGPath
+                                                content="M5 3 L7 5 L9 3 L12 5 L15 3 L17 5 L19 3 V21 L17 19 L15 21 L12 19 L9 21 L7 19 L5 21 Z M9 9 H15 M9 13 H15"
+                                                styleClass="empty-state-icon"
+                                            />
+                                        </StackPane>
+                                        <VBox alignment="CENTER" spacing="5.0">
+                                            <Label text="Nenhum item para exibir" styleClass="empty-title" />
+                                            <Label
+                                                text="Selecione uma venda para consultar os itens."
+                                                styleClass="empty-description"
+                                                maxWidth="340.0"
+                                                wrapText="true"
+                                                textAlignment="CENTER"
+                                            />
+                                        </VBox>
+                                    </VBox>
+                                </placeholder>
+                            </TableView>
+                        </VBox>
+                    </VBox>
+                    <HBox alignment="CENTER_LEFT" spacing="28.0">
+                        <VBox spacing="5.0">
+                            <Label text="Valor recebido" styleClass="detail-label" />
+                            <Label text="—" styleClass="detail-value" fx:id="labelValorRecebido" />
+                        </VBox>
+                        <VBox spacing="5.0">
+                            <Label text="Troco" styleClass="detail-label" />
+                            <Label text="—" styleClass="detail-value" fx:id="labelTrocoVenda" />
+                        </VBox>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <VBox alignment="CENTER_RIGHT" spacing="2.0">
+                            <Label text="Total da venda" styleClass="summary-total-label" />
+                            <Label text="R$ 0,00" styleClass="summary-total" fx:id="labelTotalVenda" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="12.0" styleClass="dialog-footer">
+            <Button
+                fx:id="btnFecharDetalhes"
+                onAction="#fechar"
+                text="Fechar"
+                styleClass="primary-button"
+                mnemonicParsing="false"
+                minWidth="-Infinity"
+            />
+        </HBox>
+    </bottom>
+</BorderPane>

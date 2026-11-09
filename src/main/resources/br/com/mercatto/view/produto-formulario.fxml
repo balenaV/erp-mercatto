@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.SVGPath?>
+<BorderPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="br.com.mercatto.controller.ProdutoFormularioController"
+    fx:id="produtoFormularioRoot"
+    styleClass="mercatto-root, dialog-root"
+    prefWidth="840.0"
+    prefHeight="680.0"
+    minWidth="680.0"
+    minHeight="560.0"
+    stylesheets="@../css/mercatto.css"
+>
+    <top>
+        <VBox spacing="7.0" styleClass="dialog-header">
+            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                    <Label text="Produto" styleClass="dialog-title" fx:id="tituloFormulario" />
+                    <Label
+                        text="Cadastre ou atualize as informações do catálogo."
+                        styleClass="page-description"
+                        wrapText="true"
+                    />
+                </VBox>
+                <Button
+                    fx:id="btnFechar"
+                    onAction="#fechar"
+                    text=""
+                    styleClass="icon-button"
+                    mnemonicParsing="false"
+                    accessibleText="Fechar janela"
+                    minWidth="-Infinity"
+                >
+                    <graphic>
+                        <SVGPath content="M6 6 L18 18 M18 6 L6 18" styleClass="icon" />
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="rolagemFormulario" fitToWidth="true" hbarPolicy="NEVER" styleClass="form-scroll">
+            <content>
+                <VBox spacing="18.0" styleClass="dialog-body">
+                    <VBox spacing="20.0" styleClass="form-section">
+                        <Label text="Informações do produto" styleClass="section-title" />
+                        <GridPane hgap="20.0" vgap="20.0">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="50.0" hgrow="ALWAYS" />
+                                <ColumnConstraints percentWidth="50.0" hgrow="ALWAYS" />
+                            </columnConstraints>
+                            <VBox spacing="7.0" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2">
+                                <Label text="Descrição *" styleClass="field-label" />
+                                <TextField
+                                    fx:id="campoNomeProduto"
+                                    promptText="Descrição do produto"
+                                    accessibleText="Descrição do produto"
+                                    maxWidth="1.7976931348623157E308"
+                                />
+                            </VBox>
+                            <VBox spacing="7.0" GridPane.rowIndex="1" GridPane.columnIndex="0">
+                                <Label text="Código / código de barras" styleClass="field-label" />
+                                <TextField
+                                    fx:id="campoCodigoProduto"
+                                    promptText="Opcional"
+                                    accessibleText="Código de identificação (opcional)"
+                                    maxWidth="1.7976931348623157E308"
+                                />
+                                <Label
+                                    text="Gerado automaticamente no cadastro se ficar em branco."
+                                    styleClass="field-hint"
+                                    wrapText="true"
+                                />
+                            </VBox>
+                            <VBox spacing="7.0" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                <Label text="Valor de venda *" styleClass="field-label" />
+                                <TextField
+                                    fx:id="campoPrecoProduto"
+                                    promptText="R$ 0,00"
+                                    accessibleText="R$ 0,00"
+                                    maxWidth="1.7976931348623157E308"
+                                />
+                                <Label text="Valor cobrado por unidade." styleClass="field-hint" wrapText="true" />
+                            </VBox>
+                            <VBox spacing="7.0" GridPane.rowIndex="2" GridPane.columnIndex="0">
+                                <Label text="Quantidade em estoque" styleClass="field-label" />
+                                <TextField
+                                    fx:id="campoEstoqueProduto"
+                                    promptText="Opcional — inicial: 0"
+                                    accessibleText="Quantidade em estoque (opcional)"
+                                    maxWidth="1.7976931348623157E308"
+                                />
+                                <Label
+                                    text="Se ficar em branco, o estoque será zero. Informe a quantidade para vender."
+                                    styleClass="field-hint"
+                                    wrapText="true"
+                                />
+                            </VBox>
+                            <VBox spacing="7.0" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                <Label text="Situação" styleClass="field-label" />
+                                <HBox alignment="CENTER_LEFT" spacing="22.0" minHeight="44.0">
+                                    <RadioButton fx:id="radioAtivo" text="Ativo" selected="true">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="grupoSituacao" />
+                                        </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="radioInativo" text="Inativo" toggleGroup="$grupoSituacao" />
+                                </HBox>
+                                <Label
+                                    text="Define a disponibilidade no PDV."
+                                    styleClass="field-hint"
+                                    wrapText="true"
+                                />
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+                    <HBox alignment="TOP_LEFT" spacing="12.0" styleClass="info-box">
+                        <SVGPath
+                            content="M12 11 V17 M12 7 V7.2 M22 12 A10 10 0 1 1 2 12 A10 10 0 1 1 22 12"
+                            styleClass="icon"
+                        />
+                        <Label
+                            text="Produtos inativos permanecem no cadastro e deixam de estar disponíveis para novas vendas."
+                            styleClass="info-text"
+                            wrapText="true"
+                            HBox.hgrow="ALWAYS"
+                        />
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" spacing="12.0" styleClass="dialog-footer">
+            <Label text="Campos com * são obrigatórios." styleClass="required-note" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button
+                fx:id="btnCancelar"
+                onAction="#fechar"
+                text="Cancelar"
+                styleClass="secondary-button"
+                mnemonicParsing="false"
+                minWidth="-Infinity"
+            />
+            <Button
+                fx:id="btnSalvar"
+                onAction="#salvar"
+                text="Salvar produto"
+                styleClass="primary-button"
+                mnemonicParsing="false"
+                minWidth="-Infinity"
+            >
+                <graphic>
+                    <SVGPath content="M5 12 L10 17 L20 7" styleClass="icon" />
+                </graphic>
+            </Button>
+        </HBox>
+    </bottom>
+</BorderPane>
